@@ -1,6 +1,5 @@
 import pandas as pd
 from sklearn.naive_bayes import GaussianNB
-from sklearn.metrics import mean_squared_error
 from sklearn.metrics import accuracy_score
 
 filepath = "class01.csv"
