@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import KFold, cross_validate
+from numpy import average
 
 #Importing data
 filepath = 'class02.csv'
@@ -23,11 +24,10 @@ Arguments:
   random_state = None -> Seed that would be used for shuffling the dataset
 '''
 k_fold = KFold(n_splits = 5, shuffle = False, random_state = None)
-results = cross_validate(model, X=data.drop(['target'], axis = 1), y=data['target'], scoring = 'accuracy', cv=k_fold)
+results = cross_validate(model, X=data.drop(['target'], axis = 1), y=data['target'], scoring = 'accuracy', cv=k_fold, return_train_score = True)
 
 scores = results['test_score']
 
 print('\n')
-print("Validation results: ")
-print(scores)
-print("Average: {}".format( scores.sum()/len(scores) ) )
+print("Validation results: {}".format( average(results['test_score'])))
+print("Train results {}".format( average(results['train_score'])))
